@@ -1,24 +1,40 @@
 // this is an shs school placement application
 
-#include "courses.h"
 #include "school.h"
 #include "student.h"
 
-int main(){
+int main()
+{
 
+    // JHS AccraJHS("ACCRA GIRLS JHS");
+    // AccraJHS.displayCourses();
 
-    School AccraJHS("ACCRA GIRLS JHS");
-    AccraJHS.displayCourses();
+    // // AccraJHS.getName();
 
-    // AccraJHS.getName();
+    // SHS PopeJohn("POPE JOHN SENIOR HIGH SCHOOL");
 
-    School WesleyGirls("WESLEY GIRLS SENIOR HIGH SCHOOL");
+    Student Kofi("Kofi");
+    Kofi.addSubject("French", 90);
+    Kofi.addSubject("English", 85);
 
-    Student Kofi("Paul", AccraJHS);
+    School Acs = School("Accra girls");
+    School Botwe = School("Mfantispim girls");
+    School Weygeyhey = School("Wesley Girls girls");
+    School KSTU = School("Kstu");
+
+    Kofi.addSchool(1, Acs);
+    Kofi.addSchool(2, Botwe);
+    Kofi.addSchool(3, Weygeyhey);
+    Kofi.addSchool(4, KSTU);
 
     Kofi.getStudentDetails();
+    // Kofi.displaySchoolChoices();
+    cout << endl; 
+    Kofi.CalculateAverageScore();
 
-    Kofi.enroll(WesleyGirls);
+    // // Kofi.getStudentDetails();
+
+    // Kofi.addSubject("French", 90);
 
     return 0;
 }

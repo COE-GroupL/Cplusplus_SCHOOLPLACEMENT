@@ -2,7 +2,7 @@
 #include <unordered_map>
 #include <string>
 #include <vector>
-#include <utility>
+    #include <utility>
 
 #include "school.h"
 
@@ -28,6 +28,9 @@ public:
         name = Name;
     }
 
+    void setName(string Name){
+        name = Name;
+    }
     void addSubject(const std::string &subject, int mark)
     {
         grades.emplace_back(subject, mark);
@@ -42,15 +45,16 @@ public:
         }
     }
 
-    void CalculateAverageScore() const
+    double CalculateAverageScore() const
 
     {
-        int score = 0;
+        double score = 0;
         for (const auto &subject : grades)
         {
             score += subject.second;
         }
         cout << score << " is his average score" << endl;
+        return score;
     }
 
     void addSchool(int number, const School &school)
@@ -81,6 +85,25 @@ public:
 
         // cout << "School: " << school.getName() << endl;
         // displaygrades();
+    }
+
+    void enroll() const {
+        double score = CalculateAverageScore();
+
+            {
+        for (const auto &choice : schoolChoices)
+        {
+            if (score >= choice.second.getCutOffPoint()){
+                cout << "\nChoice : " << choice.first << " Accepted ->  " << 
+                choice.second.getName() << endl;
+            }
+            else{
+                cout << "Choice : " << choice.first << " Declined -> "<<  choice.second.getName() << 
+                 endl;
+            }
+        }
+    }
+ 
     }
 };
 

@@ -31,6 +31,9 @@ public:
     void setName(string Name){
         name = Name;
     }
+    string getName() const {
+        return name ;
+    }
     void addSubject(const std::string &subject, int mark)
     {
         grades.emplace_back(subject, mark);
@@ -73,12 +76,12 @@ public:
 
     void getStudentDetails()
     {
-        cout << "Student: " << name << endl;
+        cout << " \n Student: " << name << endl;
         cout << "Grades: \n"
              << endl;
 
         displaygrades();
-        cout << "Schools: \n"
+        cout << "Schools: "
              << endl;
 
         displaySchoolChoices();

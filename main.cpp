@@ -5,16 +5,20 @@
 #include "student.h"
 #include <vector>
 #include <string>
+#include <limits> // Add this line to include the <limits> header
+
+using namespace std;
 
 int main()
 {
+
     cout << "Welcome to Ghana Education Service SHS PLACEMENT SYSTEM" << endl;
     int numStudents = 0;
     int numSchools = 0;
     int stdIndex = 0;
 
     string name = "";
-    int Mathematics, Social, French, English, ICT;
+    int Mathematics, Social, French, English, ICT, Science, GHL, RME, ECONS;
 
     vector<Student> graduates;
     Student Newst;
@@ -27,17 +31,22 @@ int main()
 
     int index;
     int schoolChoice;
+    int courseType;
+    string schoolCourse1;
+    string schoolCourse2;
 
 start:
     cout << "\n*********************************" << endl;
-    cout << "** Press S to create a student **" << endl;
-    cout << "** Press H to create a school **" << endl;
-    cout << "** Press D to display all students and schools **"<< endl;
-    cout << "** Press R to display the admission results so far **"
+    cout << "** Press h to create a school **" << endl;
+
+    cout << "** Press s to create a student **" << endl;
+    cout << "** Press d to display all students and schools **" << endl;
+    cout << "** Press r to display the admission results so far **"
          << endl;
-    cout << "** Press Q to quit the program **"
+    cout << "** Press q to quit the program **"
          << endl;
-    cout << "********************************* \n" << endl;
+    cout << "********************************* \n"
+         << endl;
 
     char input;
     cin >> input;
@@ -46,11 +55,14 @@ start:
     {
     case 's':
         // Newst = graduates[stdIndex];
-        cout << "Enter Students name" << endl;
-        cin >> name;
+        cout << "Enter Student's name " << endl;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        getline(cin, name);
+        // cin >> name;
         graduates.push_back(Student(name));
 
-        cout << "Enter the marks for the respective courses" << endl;
+        cout << "\nEnter the marks for the respective courses" << endl;
 
         cout << "Mathematics ....> " << endl;
         cin >> Mathematics;
@@ -60,19 +72,35 @@ start:
         cin >> Social;
         graduates[stdIndex].addSubject("Social", Social);
 
-        cout << "French ....> " << endl;
-        cin >> French;
-        graduates[stdIndex].addSubject("French", French);
-
         cout << "English ....> " << endl;
         cin >> English;
         graduates[stdIndex].addSubject("English", English);
+
+        cout << "Integrated Science ....> " << endl;
+        cin >> Science;
+        graduates[stdIndex].addSubject("IntegratedScience", Science);
+
+        cout << "French ....> " << endl;
+        cin >> French;
+        graduates[stdIndex].addSubject("French", French);
 
         cout << "ICT ....> " << endl;
         cin >> ICT;
         graduates[stdIndex].addSubject("ICT", ICT);
 
-        cout << "Thanks for your input" << endl;
+        cout << "RME ....> " << endl;
+        cin >> RME;
+        graduates[stdIndex].addSubject("RME", RME);
+
+        cout << "HOME ECONS ....> " << endl;
+        cin >> ECONS;
+        graduates[stdIndex].addSubject("ECONS", ECONS);
+
+        cout << "GHANAIAN LANGUAGE ....> " << endl;
+        cin >> GHL;
+        graduates[stdIndex].addSubject("GHANAIAN LANGUAGE", GHL);
+
+        cout << "\n Thanks for your input" << endl;
 
         if (seniorHighs.empty())
         {
@@ -82,13 +110,19 @@ start:
         else
         {
 
-            cout << "Select a school to enroll as your first choice" << endl;
-            cout << "<------SCHOOLS------>" << endl;
+            cout << "\nSelect a school among these to enroll as your first choice \n"
+                 << endl;
+            cout << "<------SCHOOLS------> \n"
+                 << endl;
             index = 1;
 
             for (School Sch : seniorHighs)
+
             {
                 cout << "-----" << index << "---" << Sch.getName() << endl;
+                Sch.getCourses();
+                cout << "\n"
+                     << endl;
                 index++;
             }
 
@@ -103,7 +137,10 @@ start:
             for (School Sch : seniorHighs)
             {
                 cout << "-----" << index << "---" << Sch.getName() << endl;
+                Sch.getCourses();
                 index++;
+                cout << "\n"
+                     << endl;
             }
 
             cin >> schoolChoice;
@@ -116,6 +153,7 @@ start:
             for (School Sch : seniorHighs)
             {
                 cout << "-----" << index << "---" << Sch.getName() << endl;
+                Sch.getCourses();
                 index++;
             }
 
@@ -132,8 +170,11 @@ start:
         break;
 
     case 'h':
-        cout << "Enter schools name" << endl;
-        cin >> schoolName;
+        cout << "Enter school's name" << endl;
+        // cin >> schoolName;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        getline(cin, schoolName);
 
         // sch = seniorHighs[0];
         // cout << "Students name" << graduates[stdIndex].getStudentDetails() << endl;
@@ -141,9 +182,18 @@ start:
         cout << "Enter school's cutoff point " << endl;
         cin >> cutOff;
 
-        seniorHighs.push_back(School(schoolName, cutOff));
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-        cout << "SUCCESSFFLLY CREATED " << seniorHighs.back().getName() << endl;
+        cout << "\nEnter the first course the school offers" << endl;
+        getline(cin, schoolCourse1);
+
+        cout << "Enter another course" << endl;
+        getline(cin, schoolCourse2);
+
+        seniorHighs.push_back(School(schoolName, cutOff, schoolCourse1, schoolCourse2));
+
+        cout << "\n SUCCESSFFLLY CREATED SCHOOL:" << seniorHighs.back().getName() << endl;
+
         schIndex++;
         numSchools++;
         goto start;
@@ -158,10 +208,14 @@ start:
             Std.getStudentDetails();
         }
 
-        cout << "<------SCHOOLS------>" << endl;
+        cout << "\n <------SCHOOLS------> \n"
+             << endl;
         for (School Sch : seniorHighs)
         {
             cout << "------" << Sch.getName() << endl;
+            cout << "\t CutOff Point: " << Sch.getCutOffPoint() << endl;
+
+            Sch.getCourses();
         }
 
         cout << "\n"
@@ -172,7 +226,7 @@ start:
 
     case 'r':
 
-        cout << "<------PLACEMENTS RECULTS------>" << endl;
+        cout << "<------PLACEMENTS RESULTS------>" << endl;
 
         if (graduates.empty())
         {
@@ -192,7 +246,12 @@ start:
 
         break;
 
+    case 'q':
+        break;
+
     default:
+        cout << "Sorry couldnt process your input. Please try again" << endl;
+        goto start;
         break;
     }
 }
@@ -223,3 +282,6 @@ start:
 // Kofi.enroll();
 
 // Kofi.addSubject("French", 90);
+
+// no space
+// cut off points

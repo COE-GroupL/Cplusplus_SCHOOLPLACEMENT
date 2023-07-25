@@ -77,11 +77,11 @@ public:
     void getStudentDetails()
     {
         cout << " \n Student: " << name << endl;
-        cout << "Grades: \n"
+        cout << " \n Grades: \n"
              << endl;
-
+        
         displaygrades();
-        cout << "Schools: "
+        cout << "\n Schools: "
              << endl;
 
         displaySchoolChoices();
@@ -95,9 +95,10 @@ public:
 
             {
         for (const auto &choice : schoolChoices)
-        {
+        {   
+            cout << "\n" << endl;
             if (score >= choice.second.getCutOffPoint()){
-                cout << "\nChoice : " << choice.first << " Accepted ->  " << 
+                cout << "Choice : " << choice.first << " Accepted ->  " << 
                 choice.second.getName() << endl;
             }
             else{
